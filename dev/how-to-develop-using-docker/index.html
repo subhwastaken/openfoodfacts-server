@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="https://static.openfoodfacts.org/images/logos/off-logo-favicon-light.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -29,7 +29,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -2931,9 +2931,9 @@ Most are useful!</p>
 <h3 id="live-reload">Live reload<a class="headerlink" href="#live-reload" title="Permanent link">#</a></h3>
 <p>To automate the live reload on code changes, you can install the Python package <code>when-changed</code>:
 <div class="highlight"><pre><span></span><code>pip3 install when-changed
-when-changed -r docker/ docker-compose.yml .env -c &quot;make restart&quot;                                         # restart backend container on compose changes
-when-changed -r lib/ -r docker/ docker-compose.yml -c &quot;docker compose backend restart&quot; # restart Apache on code changes
-when-changed -r html/ Dockerfile Dockerfile.frontend package.json -c &quot;make up&quot; # rebuild containers on asset or Dockerfile changes
+when-changed -r docker/ docker-compose.yml .env -c "make restart"                                         # restart backend container on compose changes
+when-changed -r lib/ -r docker/ docker-compose.yml -c "docker compose backend restart" # restart Apache on code changes
+when-changed -r html/ Dockerfile Dockerfile.frontend package.json -c "make up" # rebuild containers on asset or Dockerfile changes
 </code></pre></div></p>
 <p>An alternative to <code>when-changed</code> is <code>inotifywait</code>.</p>
 <h2 id="run-queries-on-mongodb-database">Run queries on MongoDB database<a class="headerlink" href="#run-queries-on-mongodb-database" title="Permanent link">#</a></h2>
@@ -2944,8 +2944,8 @@ commands to interact with the database:</p>
 <div class="highlight"><pre><span></span><code>show<span class="w"> </span>dbs
 use<span class="w"> </span>off
 db.products.count<span class="o">()</span>
-db.products.find<span class="o">({</span>_id:<span class="w"> </span><span class="s2">&quot;5053990155354&quot;</span><span class="o">})</span>
-db.products.deleteOne<span class="o">({</span>_id:<span class="w"> </span><span class="s2">&quot;5053990155354&quot;</span><span class="o">})</span>
+db.products.find<span class="o">({</span>_id:<span class="w"> </span><span class="s2">"5053990155354"</span><span class="o">})</span>
+db.products.deleteOne<span class="o">({</span>_id:<span class="w"> </span><span class="s2">"5053990155354"</span><span class="o">})</span>
 </code></pre></div>
 <p>See the <a href="https://www.mongodb.com/products/shell"><code>mongo</code> shell docs</a> for more commands.</p>
 <h2 id="adding-environment-variables">Adding environment variables<a class="headerlink" href="#adding-environment-variables" title="Permanent link">#</a></h2>
@@ -3014,7 +3014,7 @@ script.</p>
 </ul>
 <p>To switch between configurations, set <code>ENV_FILE</code> before running <code>make</code> commands,
 (or <code>docker compose</code> command):</p>
-<div class="highlight"><pre><span></span><code><span class="nv">ENV_FILE</span><span class="o">=</span>.env.off-pro<span class="w"> </span>make<span class="w"> </span>up<span class="w"> </span><span class="c1"># starts the OFF Producer&#39;s Platform containers.</span>
+<div class="highlight"><pre><span></span><code><span class="nv">ENV_FILE</span><span class="o">=</span>.env.off-pro<span class="w"> </span>make<span class="w"> </span>up<span class="w"> </span><span class="c1"># starts the OFF Producer's Platform containers.</span>
 <span class="nv">ENV_FILE</span><span class="o">=</span>.env.obf<span class="w">     </span>make<span class="w"> </span>up<span class="w"> </span><span class="c1"># starts the OBF containers.</span>
 <span class="nv">ENV_FILE</span><span class="o">=</span>.env.opff<span class="w">    </span>make<span class="w"> </span>up<span class="w"> </span><span class="c1"># starts the OPFF containers.</span>
 </code></pre></div>
@@ -3061,11 +3061,14 @@ make<span class="w"> </span>up
 </code></pre></div>
 to
 <div class="highlight"><pre><span></span><code><span class="nv">COMPOSE_PROJECT_NAME</span><span class="o">=</span>po_obf
-<span class="nv">COMPOSE_PROFILES</span><span class="o">=</span>obf
+<span class="nv">COMPOSE_PROFILES</span><span class="o">=</span>off
 <span class="nv">PRODUCT_OPENER_DOMAIN</span><span class="o">=</span>openbeautyfacts.localhost
 <span class="nv">PRODUCT_OPENER_PORT</span><span class="o">=</span><span class="m">81</span>
+<span class="nv">PRODUCT_OPENER_HOST_PORT</span><span class="o">=</span><span class="m">81</span>
+<span class="nv">PRODUCT_OPENER_NETWORK</span><span class="o">=</span>po_obf_network
 <span class="nv">PRODUCT_OPENER_FLAVOR</span><span class="o">=</span>openbeautyfacts
 <span class="nv">PRODUCT_OPENER_FLAVOR_SHORT</span><span class="o">=</span>obf
+<span class="nv">MONGODB_DATABASE</span><span class="o">=</span>obf
 </code></pre></div>
 Run:
 <div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">ENV_FILE</span><span class="o">=</span>.env.obf
@@ -3124,7 +3127,7 @@ If you have error like <code>Errors in the labels taxonomy definition at /opt/pr
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.action.edit"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>
